@@ -12,10 +12,11 @@ match priority:
     case _:
         message = f"Note: '{task}' has an unknown priority level"
 
-if time_bound == "yes" and priority in ["high", "medium"]:
-    message += " that requires immediate attention today!"
-elif time_bound == "yes" and priority == "low":
-    message += " but it requires attention soon."
+if time_bound == "yes":
+    if priority in ["high", "medium"]:
+        message += " that requires immediate attention today!"
+    elif priority == "low":
+        message += " but it requires attention soon."
 else:
     if priority == "low":
         message += ". Consider completing it when you have free time."
