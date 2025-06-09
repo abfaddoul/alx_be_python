@@ -14,14 +14,7 @@ def main():
     # Check if command line arguments are provided
     if len(sys.argv) < 2:
         print("Usage: python main-0.py <command>:<amount>")
-        print("Commands:")
-        print("  deposit:<amount>  - Deposit money into account")
-        print("  withdraw:<amount> - Withdraw money from account")
-        print("  display          - Show current balance")
-        print("Examples:")
-        print("  python main-0.py deposit:50")
-        print("  python main-0.py withdraw:20")
-        print("  python main-0.py display")
+        print("Commands: deposit, withdraw, display")
         sys.exit(1)
     
     # Parse command and parameters
@@ -34,32 +27,31 @@ def main():
         try:
             amount = float(command_parts[1])
         except ValueError:
-            print("Error: Amount must be a valid number.")
+            print("Invalid command.")
             sys.exit(1)
     
     # Process commands
     if command == "deposit":
-        if amount is not None and amount > 0:
+        if amount is not None:
             account.deposit(amount)
-            print(f"Deposited: ${amount:.2f}")
+            print(f"Deposited: ${amount}")
         else:
-            print("Error: Please provide a valid positive amount for deposit.")
+            print("Invalid command.")
     
     elif command == "withdraw":
-        if amount is not None and amount > 0:
+        if amount is not None:
             if account.withdraw(amount):
-                print(f"Withdrew: ${amount:.2f}")
+                print(f"Withdrew: ${amount}")
             else:
                 print("Insufficient funds.")
         else:
-            print("Error: Please provide a valid positive amount for withdrawal.")
+            print("Invalid command.")
     
     elif command == "display":
         account.display_balance()
     
     else:
-        print(f"Invalid command: {command}")
-        print("Valid commands: deposit, withdraw, display")
+        print("Invalid command.")
 
 if __name__ == "__main__":
     main()
