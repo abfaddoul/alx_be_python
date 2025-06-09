@@ -1,82 +1,39 @@
-class SimpleCalculator:
-    """
-    A simple calculator class that provides basic arithmetic operations.
-    
-    This class implements addition, subtraction, multiplication, and division
-    operations with proper error handling for division by zero.
-    """
-    
-    def add(self, a, b):
-        """
-        Add two numbers.
-        
-        Args:
-            a (float/int): First number
-            b (float/int): Second number
-            
-        Returns:
-            float/int: Sum of a and b
-        """
-        return a + b
-    
-    def subtract(self, a, b):
-        """
-        Subtract second number from first number.
-        
-        Args:
-            a (float/int): First number (minuend)
-            b (float/int): Second number (subtrahend)
-            
-        Returns:
-            float/int: Difference of a and b
-        """
-        return a - b
-    
-    def multiply(self, a, b):
-        """
-        Multiply two numbers.
-        
-        Args:
-            a (float/int): First number
-            b (float/int): Second number
-            
-        Returns:
-            float/int: Product of a and b
-        """
-        return a * b
-    
-    def divide(self, a, b):
-        """
-        Divide first number by second number.
-        
-        Args:
-            a (float/int): Dividend
-            b (float/int): Divisor
-            
-        Returns:
-            float: Quotient of a divided by b
-            
-        Raises:
-            ValueError: If b is zero (division by zero)
-        """
-        if b == 0:
-            raise ValueError("Cannot divide by zero")
-        return a / b
+import unittest
+from simple_calculator import SimpleCalculator
 
+class TestSimpleCalculator(unittest.TestCase):
 
-# Example usage (optional - for testing the class directly)
-if __name__ == "__main__":
-    calc = SimpleCalculator()
+    def setUp(self):
+        """كنحضرو واحد الانستانس من SimpleCalculator قبل كل test"""
+        self.calc = SimpleCalculator()
+
+    def test_add(self):
+        self.assertEqual(self.calc.add(2, 3), 5)
+        self.assertEqual(self.calc.add(-1, 1), 0)
+        self.assertEqual(self.calc.add(0, 0), 0)
+        self.assertEqual(self.calc.add(1.5, 2.5), 4.0)
+
+    def test_subtract(self):
+        self.assertEqual(self.calc.subtract(5, 3), 2)
+        self.assertEqual(self.calc.subtract(0, 5), -5)
+        self.assertEqual(self.calc.subtract(-3, -3), 0)
+        self.assertEqual(self.calc.subtract(2.5, 1.0), 1.5)
+
+    def test_multiply(self):
+        self.assertEqual(self.calc.multiply(4, 3), 12)
+        self.assertEqual(self.calc.multiply(0, 5), 0)
+        self.assertEqual(self.calc.multiply(-2, 3), -6)
+        self.assertEqual(self.calc.multiply(2.5, 2), 5.0)
+
+    def test_divide(self):
+        self.assertEqual(self.calc.divide(10, 2), 5)
+        self.assertEqual(self.calc.divide(-6, 3), -2)
+        self.assertEqual(self.calc.divide(5.0, 2.0), 2.5)
+        self.assertEqual(self.calc.divide(0, 5), 0)
     
-    # Test basic operations
-    print("Testing SimpleCalculator:")
-    print(f"5 + 3 = {calc.add(5, 3)}")
-    print(f"10 - 4 = {calc.subtract(10, 4)}")
-    print(f"6 * 7 = {calc.multiply(6, 7)}")
-    print(f"15 / 3 = {calc.divide(15, 3)}")
-    
-    # Test division by zero
-    try:
-        result = calc.divide(10, 0)
-    except ValueError as e:
-        print(f"Division by zero error: {e}")
+    def test_divide_by_zero(self):
+        self.assertIsNone(self.calc.divide(5, 0))
+        self.assertIsNone(self.calc.divide(0, 0))  # Optional: 0/0 is undefined
+
+if __name__ == '__main__':
+    unittest.main()
